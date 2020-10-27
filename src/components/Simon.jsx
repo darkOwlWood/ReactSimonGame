@@ -3,59 +3,63 @@ import '../assets/styles/components/Simon.scss';
 import SimonButton from './SimonButton';
 
 const COLOR_LIST = ['red', 'yellow', 'green', 'blue'];
+const MAX_LEVEL = 10;
 
 const Simon = () => {
 
     //The array reference change every is set up, the plain value number not
-    const [gameData, setGameData] = useState({level:[1], secuence:[], allowClick:false});
-    const secuenceRef = useRef([]);
+    const [gameData, setGameData] = useState({level:1, sequence:[], allowClick:false});
+    const sequenceRef = useRef([]);
 
     useLayoutEffect( () => {
-        const secuence_copy = [];
-        secuence_copy.push(...gameData.secuence);
-        secuence_copy.push(Math.floor(Math.random()*4));
-        secuenceRef.current = secuence_copy;
-        setGameData({...gameData, secuence:secuence_copy});
-    },[gameData.level]);
+        const sequence = Array(MAX_LEVEL)
+                            .fill(COLOR_LIST.length)
+                            .map( val => Math.floor(Math.random()*val) );
+        sequenceRef.current = sequence;
+        setGameData({...gameData, sequence: [sequence[0]]});
+    },[]);
     
     const handleButtonClick = (id) => {
         if(gameData.allowClick){
-            if(gameData.secuence[0] === id){
+            if(gameData.sequence[0] === id){
 
-                //Secuence never going to be zero, is safe
-                const isZero = !(gameData.secuence.length-1);
+                //sequence never going to be zero, is safe
+                const isZero = !(gameData.sequence.length-1);
+
+                if(isZero && gameData.level === MAX_LEVEL){
+                    setGameData({level:1, sequence:[], allowClick:false});
+                    console.log('Thanks for play my game!!!');
+                    return;
+                }
+
                 setGameData({
-                    level:      isZero? [gameData.level+1]:gameData.level,
-                    secuence:   isZero? secuenceRef.current:gameData.secuence.slice(1),
+                    level:      isZero? gameData.level+1:gameData.level,
+                    sequence:   isZero? sequenceRef.current.slice(0,gameData.level+1):gameData.sequence.slice(1),
                     allowClick: isZero? false:true,
-                })
+                });
 
                 console.log('Bravo!!!');
-                !(gameData.secuence.length-1) && console.log('Next level');
+                isZero && console.log('Next level');
                 
             }else{
-                setGameData({...gameData, secuence:[], level:[1]})
+                setGameData({level:1, sequence:[], allowClick:false});
                 console.log('Loser!!!');
             }
         }
     }
 
-    const setAllowClick = (boolean) => {
-        setGameData({...gameData, allowClick:boolean})
-    }
-
     return (
         <div className="simon">
             {
-                secuenceRef.current.length &&
+                sequenceRef.current.length &&
                 COLOR_LIST.map( (color,ndx) => (
                     <SimonButton 
                         id={ndx}
                         key={ndx} 
                         color={color}
-                        secuence={secuenceRef.current}
+                        gameData={gameData}
+                        setGameData={setGameData}
                         onClick={handleButtonClick}
-                        setAllowClick={setAllowClick}
                     />
                 ))
             }

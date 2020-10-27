@@ -1,27 +1,26 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import '../assets/styles/components/SimonButton.scss';
 
 const DELAY_TIME = 1000;
 const BLINK_TIME = 250;
 
-const SimonButton = ({id,color,secuence,onClick,setAllowClick}) => {
+const SimonButton = ({id,color,gameData,setGameData,onClick}) => {
 
     const divEl = useRef(null);
 
     useEffect( () => {
-        console.log('render');
-        secuence.forEach( (number,ndx) => {
+        gameData.sequence.forEach( (number,ndx) => {
             if(id === number){
                 setTimeout( () => {
                     divEl.current.classList.add('blink');
                     setTimeout( () => {
                         divEl.current.classList.remove('blink');
-                        (ndx+1)===secuence.length && setAllowClick(true);
+                        (ndx+1)===gameData.level && setGameData({...gameData, allowClick:true});
                     }, BLINK_TIME)
                 }, DELAY_TIME * (ndx+1));
             }
         });
-    },[secuence]);
+    },[gameData.level]);
 
     return (
         <div 
