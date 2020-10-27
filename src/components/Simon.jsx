@@ -5,19 +5,22 @@ import SimonButton from './SimonButton';
 const COLOR_LIST = ['red', 'yellow', 'green', 'blue'];
 const MAX_LEVEL = 10;
 
-const Simon = () => {
+const Simon = ({startGame,setGameState}) => {
 
-    //The array reference change every is set up, the plain value number not
-    const [gameData, setGameData] = useState({level:1, sequence:[], allowClick:false});
+    console.log(startGame);
+
+    const [gameData, setGameData] = useState({level:0, sequence:[], allowClick:false});
     const sequenceRef = useRef([]);
 
     useLayoutEffect( () => {
-        const sequence = Array(MAX_LEVEL)
-                            .fill(COLOR_LIST.length)
-                            .map( val => Math.floor(Math.random()*val) );
-        sequenceRef.current = sequence;
-        setGameData({...gameData, sequence: [sequence[0]]});
-    },[]);
+        if(startGame){
+            const sequence = Array(MAX_LEVEL)
+                                .fill(COLOR_LIST.length)
+                                .map( val => Math.floor(Math.random()*val) );
+            sequenceRef.current = sequence;
+            setGameData({...gameData, level:1, sequence: [sequence[0]]});
+        }
+    },[startGame]);
     
     const handleButtonClick = (id) => {
         if(gameData.allowClick){
@@ -27,8 +30,8 @@ const Simon = () => {
                 const isZero = !(gameData.sequence.length-1);
 
                 if(isZero && gameData.level === MAX_LEVEL){
-                    setGameData({level:1, sequence:[], allowClick:false});
-                    console.log('Thanks for play my game!!!');
+                    setGameData({level:0, sequence:[], allowClick:false});
+                    setGameState(2);
                     return;
                 }
 
@@ -42,8 +45,8 @@ const Simon = () => {
                 isZero && console.log('Next level');
                 
             }else{
-                setGameData({level:1, sequence:[], allowClick:false});
-                console.log('Loser!!!');
+                setGameData({level:0, sequence:[], allowClick:false});
+                setGameState(1)
             }
         }
     }
@@ -51,7 +54,6 @@ const Simon = () => {
     return (
         <div className="simon">
             {
-                sequenceRef.current.length &&
                 COLOR_LIST.map( (color,ndx) => (
                     <SimonButton 
                         id={ndx}
