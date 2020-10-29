@@ -1,20 +1,21 @@
 $animation-time: cubic-bezier(0.495, 1.225, 1.000, 0.945);
 
 .board-message{
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
 
     background-color: darkblue;
     position: absolute;
+    bottom: 100%;
     z-index: 10;
 }
 
-.board-message--curtainUpping{
-    animation: curtainUpping 1s $animation-time;
+.board-message--curtainFalling{
+    animation: curtainFalling 1.3s $animation-time forwards;
 }
 
-.board-message--curtainFalling{
-    animation: curtainFalling 1.3s $animation-time;
+.board-message--curtainUpping{
+    animation: curtainUpping 1s $animation-time forwards;
 }
 
 @keyframes curtainUpping{

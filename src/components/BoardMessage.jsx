@@ -6,17 +6,11 @@ import '../assets/styles/components/BoardMessage.scss';
 //END GAME ----> SIMON
 
 const UPPING_ANIMATION_TIME = 1000;
-const FALLING_ANIMATION_TIME = 1350;
+const FALLING_ANIMATION_TIME = 1300;
 
 const BoardMessage = ({message, setGameState}) => {
     
     const divEl = useRef(null);
-
-    useEffect(() => {
-        setTimeout( () => {
-            divEl.current.classList.remove('board-message--curtainFalling');
-        },FALLING_ANIMATION_TIME);
-    })
 
     const handleClick = () => {
         divEl.current.classList.add('board-message--curtainUpping');

@@ -20,29 +20,27 @@ const Simon = ({startGame,setGameState}) => {
         }
     },[startGame]);
     
-    const handleButtonClick = (id) => {
-        if(gameData.allowClick){
-            if(gameData.sequence[0] === id){
+    const checkSimonSequence = (id) => {
+        if(gameData.sequence[0] === id){
 
-                //sequence never going to be zero, is safe
-                const isZero = !(gameData.sequence.length-1);
+            //sequence never going to be zero, is safe
+            const isZero = !(gameData.sequence.length-1);
 
-                if(isZero && gameData.level === MAX_LEVEL){
-                    setGameData({level:0, sequence:[], allowClick:false});
-                    setGameState(2);
-                    return;
-                }
-
-                setGameData({
-                    level:      isZero? gameData.level+1:gameData.level,
-                    sequence:   isZero? sequenceRef.current.slice(0,gameData.level+1):gameData.sequence.slice(1),
-                    allowClick: isZero? false:true,
-                });
-                
-            }else{
+            if(isZero && gameData.level === MAX_LEVEL){
                 setGameData({level:0, sequence:[], allowClick:false});
-                setGameState(1)
+                setGameState(2);
+                return;
             }
+
+            setGameData({
+                level:      isZero? gameData.level+1:gameData.level,
+                sequence:   isZero? sequenceRef.current.slice(0,gameData.level+1):gameData.sequence.slice(1),
+                allowClick: isZero? false:true,
+            });
+            
+        }else{
+            setGameData({level:0, sequence:[], allowClick:false});
+            setGameState(1);
         }
     }
 
@@ -56,7 +54,7 @@ const Simon = ({startGame,setGameState}) => {
                         color={color}
                         gameData={gameData}
                         setGameData={setGameData}
-                        onClick={handleButtonClick}
+                        checkSimonSequence={checkSimonSequence}
                     />
                 ))
             }

@@ -4,7 +4,7 @@ import '../assets/styles/components/SimonButton.scss';
 const DELAY_TIME = 1000;
 const BLINK_TIME = 250;
 
-const SimonButton = ({id,color,gameData,setGameData,onClick}) => {
+const SimonButton = ({id,color,gameData,setGameData,checkSimonSequence}) => {
 
     const divEl = useRef(null);
 
@@ -12,23 +12,34 @@ const SimonButton = ({id,color,gameData,setGameData,onClick}) => {
         gameData.sequence.forEach( (number,ndx) => {
             if(id === number){
                 setTimeout( () => {
-                    divEl.current.classList.add('blink');
-                    setTimeout( () => {
-                        divEl.current.classList.remove('blink');
-                        (ndx+1)===gameData.level && setGameData({...gameData, allowClick:true});
-                    }, BLINK_TIME)
+                    makeTheButtonBlink(
+                        (ndx+1)===gameData.level?
+                        ()=>{setGameData({...gameData, allowClick:true})}
+                        :undefined
+                    );
                 }, DELAY_TIME * (ndx+1));
             }
         });
     },[gameData.level]);
 
+    const handleOnClick = () => {
+        makeTheButtonBlink();
+        checkSimonSequence(id);
+    }
+
+    function makeTheButtonBlink(callBack = ()=>{}){
+        divEl.current.classList.add('blink');
+        setTimeout( () => {
+            divEl.current.classList.remove('blink');
+            callBack();
+        }, BLINK_TIME);
+    }
+
     return (
         <div 
             ref={divEl}
-            onClick={() => onClick(id)}
-            onMouseDown={() => divEl.current.classList.add('blink')}
-            onMouseUp={() => divEl.current.classList.remove('blink')}
             className={color}
+            onClick={gameData.allowClick? handleOnClick : ()=>{}}
         >
             <span className="nail"></span>
             <span className="nail"></span>
