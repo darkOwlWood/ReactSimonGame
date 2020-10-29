@@ -1,24 +1,82 @@
-.simon-button{
+%simon-button{
     width: 50%;
-    height: 50%
+    height: 50%;
+
+    box-sizing: border-box;
+
+    border-style: solid;
+    border-width: 10px;
+
+    position: relative;
+    z-index: 5;
 }
 
 .green{
-    background-color: #4DB6AC;
+    @extend %simon-button;
+    background-color: #66BB6A;
+    border-image: linear-gradient(145deg, rgba(161,255,162,1) 0%, rgba(102,187,106,1) 50%, rgba(27,99,30,1) 100%) 30% stretch;
 }
 
 .yellow{
-    background-color: #DCE775;
+    @extend %simon-button;
+    background-color: #FFEE58;
+    border-image: linear-gradient(145deg, rgba(255,249,201,1) 0%, rgba(255,238,88,1) 50%, rgba(99,92,28,1) 100%) 30% stretch;
 }
 
 .red{
-    background-color: #FF8A65;
+    @extend %simon-button;
+    background-color: #FF7043;
+    border-image: linear-gradient(145deg, rgba(255,190,169,1) 0%, rgba(255,112,67,1) 50%, rgba(97,44,28,1) 100%) 30% stretch;
 }
 
 .blue{
-    background-color: #64B5F6;
+    @extend %simon-button;
+    background-color: #4B81D1;
+    border-image: linear-gradient(145deg, rgba(150,193,255,1) 0%, rgba(75,129,209,1) 50%, rgba(32,57,94,1) 100%) 30% stretch;
 }
 
 .blink{
-    background-color: cornsilk;
+    background-color: #E0E0E0;
+    border-image: linear-gradient(145deg, #FFFFFF, #E0E0E0, #AEAEAE) 30% stretch;
+}
+
+.nail{
+    width: 15px;
+    height: 15px;
+
+    display: flex;
+    border-radius: 100px;
+    overflow: hidden;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #bcbcbc;
+
+    position: absolute;
+}
+
+.nail:before{
+    width: 100%;
+    height: 3px;
+
+    content: "";
+    display: inline-block;
+
+    background-color: #8c8c8c;
+
+    transform: rotate(145deg);
+}
+
+.nail:nth-child(2){
+    right: 0;
+}
+
+.nail:nth-child(3){
+    right: 0;
+    bottom: 0;
+}
+
+.nail:nth-child(4){
+    bottom: 0;
 }

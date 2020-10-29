@@ -18,22 +18,23 @@ const MainSection = () => {
 
     return (
         <div className="main-section">
-            <div className="main-section-wrapper">
+            <div className="main-section__wrapper">
+                <div className="main-section__wrapper__game">
+                    {
+                        gameState!==3 &&
+                        BOAR_MESSAGE
+                        .map( (message) => (
+                            <BoardMessage
+                                key={1}
+                                message={message}
+                                setGameState={setGameState}
+                            />
+                        ))
+                        .filter( (val,ndx) => ndx===gameState)
+                    }
 
-                {
-                    gameState!==3 &&
-                    BOAR_MESSAGE
-                    .map( (message) => (
-                        <BoardMessage
-                            key={1}
-                            message={message}
-                            setGameState={setGameState}
-                        />
-                    ))
-                    .filter( (val,ndx) => ndx===gameState)
-                }
-
-                <Simon startGame={gameState===3} setGameState={setGameState}/>
+                    <Simon startGame={gameState===3} setGameState={setGameState}/>
+                </div>
             </div>
         </div>
     );

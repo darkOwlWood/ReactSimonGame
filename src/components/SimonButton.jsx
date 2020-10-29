@@ -28,8 +28,12 @@ const SimonButton = ({id,color,gameData,setGameData,onClick}) => {
             onClick={() => onClick(id)}
             onMouseDown={() => divEl.current.classList.add('blink')}
             onMouseUp={() => divEl.current.classList.remove('blink')}
-            className={`simon-button ${color}`}
+            className={color}
         >
+            <span className="nail"></span>
+            <span className="nail"></span>
+            <span className="nail"></span>
+            <span className="nail"></span>
         </div>
     );
 }

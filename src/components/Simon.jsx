@@ -7,8 +7,6 @@ const MAX_LEVEL = 10;
 
 const Simon = ({startGame,setGameState}) => {
 
-    console.log(startGame);
-
     const [gameData, setGameData] = useState({level:0, sequence:[], allowClick:false});
     const sequenceRef = useRef([]);
 
@@ -40,9 +38,6 @@ const Simon = ({startGame,setGameState}) => {
                     sequence:   isZero? sequenceRef.current.slice(0,gameData.level+1):gameData.sequence.slice(1),
                     allowClick: isZero? false:true,
                 });
-
-                console.log('Bravo!!!');
-                isZero && console.log('Next level');
                 
             }else{
                 setGameData({level:0, sequence:[], allowClick:false});
