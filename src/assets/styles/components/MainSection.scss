@@ -3,18 +3,14 @@
     height: calc(100vh - 100px);
 
     background-color: cornflowerblue;
-}
-
-.main-section__wrapper{
-    width: 100%;
-    height: 100%;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center
 }
 
-.main-section__wrapper__game{
+.main-section__game{
     width: 350px;
     height: 350px;
 

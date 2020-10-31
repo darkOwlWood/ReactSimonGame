@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../assets/styles/components/MainSection.scss';
 import Simon from './Simon';
 import BoardMessage from './BoardMessage';
+import Clock from './Clock';
 
 //0 - START GAME MESSAGE
 //1 - RESET GAME MESSAGE
@@ -12,29 +13,28 @@ const BOAR_MESSAGE = ['Click to start the game','Game over, restart the game','T
 
 const MainSection = () => {
 
-    const [gameState, setGameState] = useState(0);
+    const [gameState, setGameState] = useState({messageId: 0, level:0});
 
     console.log(gameState)
 
     return (
         <div className="main-section">
-            <div className="main-section__wrapper">
-                <div className="main-section__wrapper__game">
-                    {
-                        gameState!==3 &&
-                        BOAR_MESSAGE
-                        .map( (message) => (
-                            <BoardMessage
-                                key={1}
-                                message={message}
-                                setGameState={setGameState}
-                            />
-                        ))
-                        .filter( (val,ndx) => ndx===gameState)
-                    }
+            <Clock gameState={gameState} setGameState={setGameState}/>
+            <div className="main-section__game">
+                {
+                    gameState.messageId!==3 &&
+                    BOAR_MESSAGE
+                    .map( (message) => (
+                        <BoardMessage 
+                            message={message}
+                            gameState={gameState}
+                            setGameState={setGameState}
+                        />
+                    ))
+                    .filter( (val,ndx) => ndx===gameState.messageId)
+                }
 
-                    <Simon startGame={gameState===3} setGameState={setGameState}/>
-                </div>
+                <Simon startGame={gameState.messageId===3} setGameState={setGameState}/>
             </div>
         </div>
     );
