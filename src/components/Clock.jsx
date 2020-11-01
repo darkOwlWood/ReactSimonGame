@@ -12,14 +12,14 @@ const Clock = ({gameState,setGameState}) => {
         let time = gameState.messageId===3? Time.GAME_TIME/1000 : 0;
         setTime(time);
         setTimeout(()=>{
-            timerId.current = time? 
+            timerId.current = time?
                 setInterval(()=>{
                     time+=-1
                     time? setTime(time):setGameState({messageId:1, level:0});
-                },1000) 
+                },1000)
                 : null;
         },Time.BLINK_TIME + (Time.DELAY_TIME * gameState.level));
-    },[gameState.level]);
+    },[gameState.messageId,gameState.level]);
 
     return (
         <div className="clock">

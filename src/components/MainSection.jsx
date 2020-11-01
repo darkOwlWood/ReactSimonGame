@@ -3,6 +3,7 @@ import '../assets/styles/components/MainSection.scss';
 import Simon from './Simon';
 import BoardMessage from './BoardMessage';
 import Clock from './Clock';
+import Score from './Score';
 
 //0 - START GAME MESSAGE
 //1 - RESET GAME MESSAGE
@@ -19,6 +20,7 @@ const MainSection = () => {
 
     return (
         <div className="main-section">
+            <Score gameState={gameState}/>
             <Clock gameState={gameState} setGameState={setGameState}/>
             <div className="main-section__game">
                 {
