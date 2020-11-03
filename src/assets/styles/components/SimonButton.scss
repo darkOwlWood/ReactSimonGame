@@ -17,11 +17,6 @@
     border-image: linear-gradient(145deg, rgba(161,255,162,1) 0%, rgba(102,187,106,1) 50%, rgba(27,99,30,1) 100%) 30% stretch;
 }
 
-.yellow{
-    @extend %simon-button;
-    background-color: #FFEE58;
-    border-image: linear-gradient(145deg, rgba(255,249,201,1) 0%, rgba(255,238,88,1) 50%, rgba(99,92,28,1) 100%) 30% stretch;
-}
 
 .red{
     @extend %simon-button;
@@ -35,9 +30,16 @@
     border-image: linear-gradient(145deg, rgba(150,193,255,1) 0%, rgba(75,129,209,1) 50%, rgba(32,57,94,1) 100%) 30% stretch;
 }
 
-.blink{
+.white{
+    @extend %simon-button;
     background-color: #E0E0E0;
     border-image: linear-gradient(145deg, #FFFFFF, #E0E0E0, #AEAEAE) 30% stretch;
+}
+
+.yellow{
+    @extend %simon-button;
+    background-color: #FFEE58;
+    border-image: linear-gradient(145deg, rgba(255,249,201,1) 0%, rgba(255,238,88,1) 50%, rgba(99,92,28,1) 100%) 30% stretch;
 }
 
 .nail{

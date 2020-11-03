@@ -1,6 +1,6 @@
 import React,{ useEffect, useState, useRef } from 'react';
 import moment from 'moment';
-import Time from '../utils/ApplicationNumbers';
+import Config from '../config/config';
 import '../assets/styles/components/Score.scss';
 
 const Score = ({gameState}) => {
@@ -9,12 +9,12 @@ const Score = ({gameState}) => {
     const [points, setPoints] = useState({score:0, bestScore:0});
 
     useEffect(() => {
-        const score = (30 - Math.floor((moment().diff(timeElapsed.current)/100)));
+        const score = (Config.GAME_TIME/100 - Math.floor(moment().diff(timeElapsed.current)/100));
         timeElapsed.current && setPoints({...points, score:points.score+score});
-        if(gameState.messageId === 3){
+        if(gameState.messageId === Config.START_SIMON){
             setTimeout(() => {
                 timeElapsed.current = moment();
-            }, Time.BLINK_TIME + (Time.DELAY_TIME * gameState.level));
+            }, Config.BLINK_TIME + (Config.DELAY_TIME * gameState.level));
         }else{
             timeElapsed.current = null;
             setPoints({...points, score:0});
@@ -28,8 +28,8 @@ const Score = ({gameState}) => {
 
     return (
         <div className="score">
-            <span>Best score: {points.bestScore}</span><br/>
-            <span>Current Score: {points.score}</span>
+            <span>Best: {points.bestScore}</span>
+            <span>Score: {points.score}</span>
         </div>
     );
 }

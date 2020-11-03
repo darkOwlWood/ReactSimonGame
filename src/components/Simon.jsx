@@ -1,19 +1,20 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import '../assets/styles/components/Simon.scss';
 import SimonButton from './SimonButton';
-import Time from '../utils/ApplicationNumbers';
+import Config from '../config/config';
 
-const COLOR_LIST = ['red', 'yellow', 'green', 'blue'];
+const COLOR_LIST = ['blue', 'green', 'white', 'red'];
 
 const Simon = ({startGame,setGameState}) => {
 
+    const lock = useRef(true);
     const sequenceRef = useRef([]);
     const [simonData, setSimonData] = useState({level:0, sequence:[], allowClick:false});
 
     //When the game start is true the sequence for the simon is created
     useLayoutEffect( () => {
         if(startGame){
-            const sequence = Array(Time.MAX_LEVEL)
+            const sequence = Array(Config.MAX_LEVEL)
                                 .fill(COLOR_LIST.length)
                                 .map( val => Math.floor(Math.random()*val) );
             sequenceRef.current = sequence;
@@ -29,8 +30,8 @@ const Simon = ({startGame,setGameState}) => {
             //sequence never going to be zero, is safe
             const isZero = !(simonData.sequence.length-1);
 
-            if(isZero && simonData.level === Time.MAX_LEVEL){
-                setGameState({messageId:2, level:Time.MAX_LEVEL});
+            if(isZero && simonData.level === Config.MAX_LEVEL){
+                setGameState({messageId:Config.END_MESSAGE, level:Config.MAX_LEVEL});
                 return;
             }
 
@@ -40,10 +41,10 @@ const Simon = ({startGame,setGameState}) => {
                 allowClick: isZero? false:true,
             });
             
-            isZero && setGameState({messageId:3, level: simonData.level+1});
+            isZero && setGameState({messageId:Config.START_SIMON, level: simonData.level+1});
             
         }else{
-            setGameState({messageId:1, level:0});
+            setGameState({messageId:Config.RESET_MESSAGE, level:0});
         }
     }
 
@@ -54,6 +55,7 @@ const Simon = ({startGame,setGameState}) => {
                     <SimonButton 
                         id={ndx}
                         key={ndx} 
+                        lock={lock}
                         color={color}
                         simonData={simonData}
                         setSimonData={setSimonData}

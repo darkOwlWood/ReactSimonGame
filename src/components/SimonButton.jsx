@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import '../assets/styles/components/SimonButton.scss';
-import Time from '../utils/ApplicationNumbers' ;
+import Config from '../config/config' ;
 
-const SimonButton = ({id,color,simonData,setSimonData,checkSimonSequence}) => {
+const SimonButton = ({id,lock,color,simonData,setSimonData,checkSimonSequence}) => {
 
     const divEl = useRef(null);
 
@@ -12,25 +12,34 @@ const SimonButton = ({id,color,simonData,setSimonData,checkSimonSequence}) => {
         if(length){
             simonData.sequence.forEach( (number,ndx) => {
                 if(id === number){
-                    setTimeout(makeTheButtonBlink, Time.DELAY_TIME * (ndx+1));
+                    setTimeout(makeTheButtonBlink, Config.DELAY_TIME * (ndx+1));
                 }
             });
     
             setTimeout( () => setSimonData({...simonData, allowClick: true}), 
-            Time.BLINK_TIME + (Time.DELAY_TIME * simonData.level));
+            Config.BLINK_TIME + (Config.DELAY_TIME * simonData.level));
         }
     },[simonData.level]);
 
-    const handleOnClick = () => {
-        makeTheButtonBlink();
-        checkSimonSequence(id);
+    const handleOnClick = async () => {
+        if(lock.current){
+            lock.current = false;
+            await makeTheButtonBlink();
+            checkSimonSequence(id);
+            lock.current = true;
+        }
     }
 
-    function makeTheButtonBlink(){
-        divEl.current.classList.add('blink');
-        setTimeout( () => {
-            divEl.current.classList.remove('blink');
-        }, Time.BLINK_TIME);
+    async function makeTheButtonBlink(){
+        divEl.current.classList.add('yellow');
+        return (
+            new Promise((resolve,reject) => {
+                setTimeout( () => {
+                    divEl.current.classList.remove('yellow');
+                    resolve();
+                }, Config.BLINK_TIME);
+            })
+        );  
     }
 
     return (

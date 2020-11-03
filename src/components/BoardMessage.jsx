@@ -1,10 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import '../assets/styles/components/BoardMessage.scss';
-import Time from '../utils/ApplicationNumbers';
-
-//START MESSAGE ---> SIMON
-//RESTART MESSAGE ----> SIMON
-//END GAME ----> SIMON
+import Config from '../config/config';
 
 const BoardMessage = ({message, gameState, setGameState}) => {
     
@@ -13,8 +9,8 @@ const BoardMessage = ({message, gameState, setGameState}) => {
     const handleClick = () => {
         divEl.current.classList.add('board-message--curtainUpping');
         setTimeout( () => {
-            setGameState({messageId:3, level:1});
-        },Time.UPPING_ANIMATION_TIME);
+            setGameState({messageId:Config.START_SIMON, level:1});
+        },Config.UPPING_ANIMATION_TIME);
     }
 
     return (

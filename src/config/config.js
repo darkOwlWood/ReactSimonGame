@@ -1,0 +1,14 @@
+const Config = {
+    MAX_LEVEL: 10,
+    BLINK_TIME:250,
+    DELAY_TIME:1000,
+    GAME_TIME: 10000,
+    UPPING_ANIMATION_TIME: 1000,
+    FALLING_ANIMATION_TIME: 1300,
+    START_MESSAGE: 0,
+    RESET_MESSAGE:1,
+    END_MESSAGE:2,
+    START_SIMON:3,
+};
+
+export default Config;

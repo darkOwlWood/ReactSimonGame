@@ -1,5 +1,5 @@
-.clock{
-    width: 95px;
+.level{
+    width: 105px;
     height: 100%;
     padding: 5px;
 
@@ -13,7 +13,7 @@
 }
 
 @media(min-width: 700px){
-    .clock{
-        width: 130px
+    .level{
+        width: 170px;
     }
 }

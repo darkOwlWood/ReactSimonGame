@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import '../assets/styles/components/Clock.scss';
-import Time from '../utils/ApplicationNumbers';
+import Config from '../config/config';
 
 const Clock = ({gameState,setGameState}) => {
 
@@ -9,21 +9,23 @@ const Clock = ({gameState,setGameState}) => {
 
     useEffect(()=>{
         clearInterval(timerId.current);
-        let time = gameState.messageId===3? Time.GAME_TIME/1000 : 0;
+        let time = gameState.messageId===Config.START_SIMON? Config.GAME_TIME/1000 : 0;
         setTime(time);
         setTimeout(()=>{
-            timerId.current = time?
-                setInterval(()=>{
+            if(time){
+                time+=-1
+                setTime(time);
+                timerId.current = setInterval(()=>{
                     time+=-1
-                    time? setTime(time):setGameState({messageId:1, level:0});
-                },1000)
-                : null;
-        },Time.BLINK_TIME + (Time.DELAY_TIME * gameState.level));
+                    time? setTime(time):setGameState({messageId:Config.RESET_MESSAGE, level:0});
+                },1000)//Execute this every second the seem like a clock
+            }
+        },Config.BLINK_TIME + (Config.DELAY_TIME * gameState.level));
     },[gameState.messageId,gameState.level]);
 
     return (
         <div className="clock">
-            <span>{ time }</span>
+            <span>Time: { time }</span>
         </div>
     )
 }
