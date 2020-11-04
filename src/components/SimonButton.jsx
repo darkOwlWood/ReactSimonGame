@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import '../assets/styles/components/SimonButton.scss';
-import Config from '../config/config' ;
+import Config from '../config' ;
 
 const SimonButton = ({id,lock,color,simonData,setSimonData,checkSimonSequence}) => {
 

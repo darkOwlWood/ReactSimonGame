@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../assets/styles/components/MainSection.scss';
-import Config from '../config/config';
-import Simon from './Simon';
-import BoardMessage from './BoardMessage';
+import Config from '../config';
 import Header from './Header';
+import SubMessage from './SubMessage';
+import BoardMessage from './BoardMessage';
+import Simon from './Simon';
 import Footer from './Footer';
 
 const BOARD_MESSAGE = ['Click to start!!!','GAME OVER','Thanks for play!!!'];
@@ -15,6 +16,7 @@ const MainSection = () => {
     return (
         <div className="main-section">
             <Header gameState={gameState} setGameState={setGameState}/>
+            <SubMessage gameState={gameState}/>
             <div className="main-section__game">
                 {
                     gameState.messageId!==Config.START_SIMON &&

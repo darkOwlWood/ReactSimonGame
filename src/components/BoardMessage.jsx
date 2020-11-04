@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import '../assets/styles/components/BoardMessage.scss';
-import Config from '../config/config';
+import Config from '../config';
 
 const BoardMessage = ({message, gameState, setGameState}) => {
     

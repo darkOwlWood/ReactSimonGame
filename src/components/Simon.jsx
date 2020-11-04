@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import '../assets/styles/components/Simon.scss';
 import SimonButton from './SimonButton';
-import Config from '../config/config';
+import Config from '../config';
 
 const COLOR_LIST = ['blue', 'green', 'white', 'red'];
 
@@ -31,7 +31,7 @@ const Simon = ({startGame,setGameState}) => {
             const isZero = !(simonData.sequence.length-1);
 
             if(isZero && simonData.level === Config.MAX_LEVEL){
-                setGameState({messageId:Config.END_MESSAGE, level:Config.MAX_LEVEL});
+                setGameState({messageId:Config.VICTORY_MESSAGE, level:Config.MAX_LEVEL});
                 return;
             }
 
@@ -44,7 +44,7 @@ const Simon = ({startGame,setGameState}) => {
             isZero && setGameState({messageId:Config.START_SIMON, level: simonData.level+1});
             
         }else{
-            setGameState({messageId:Config.RESET_MESSAGE, level:0});
+            setGameState({messageId:Config.LOSE_MESSAGE, level:0});
         }
     }
 

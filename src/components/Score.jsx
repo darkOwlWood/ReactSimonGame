@@ -1,6 +1,6 @@
 import React,{ useEffect, useState, useRef } from 'react';
 import dayjs from 'dayjs';
-import Config from '../config/config';
+import Config from '../config';
 import '../assets/styles/components/Score.scss';
 
 const Score = ({gameState}) => {

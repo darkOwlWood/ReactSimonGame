@@ -36,9 +36,14 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             limit: 8000,
+                            fallback: 'file-loader',
                         }
                     }
                 ],
+            },
+            {
+                test: /\.(wav|mp3|ogg)$/,
+                loader: 'file-loader',
             }
         ]
     },
