@@ -17,11 +17,10 @@ const BoardMessage = ({message, gameState, setGameState}) => {
         <div 
             ref={divEl}
             className="board-message board-message--curtainFalling" 
-            onClick={handleClick}
         >
-            {
-                message
-            }
+            <span className="board-message__item" onClick={handleClick}>
+                { message }
+            </span>
         </div>
     );
 }

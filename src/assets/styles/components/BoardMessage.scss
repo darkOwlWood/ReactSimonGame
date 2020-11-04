@@ -4,10 +4,37 @@ $animation-time: cubic-bezier(0.495, 1.225, 1.000, 0.945);
     width: 100%;
     height: 100%;
 
-    background-color: darkblue;
+    background-image: url('../../static/curtain.png');
+    background-position: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     position: absolute;
     bottom: 100%;
     z-index: 10;
+}
+
+.board-message__item{
+    width: 300px;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.3em;
+    color: #f8f8f8;
+    text-shadow: #000 2px 2px 0;
+    
+    background-color: #C09000;
+    text-align: center;
+    cursor: pointer;
+
+    border-width: 10px;
+    border-style: solid;
+    border-image: linear-gradient(145deg, #F2C200 0%, #C09000 50%, #906000 100%) 30% stretch;
 }
 
 .board-message--curtainFalling{

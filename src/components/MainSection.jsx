@@ -6,7 +6,7 @@ import BoardMessage from './BoardMessage';
 import Header from './Header';
 import Footer from './Footer';
 
-const BOARD_MESSAGE = ['Click to start the game','Game over, restart the game','Thanks for play'];
+const BOARD_MESSAGE = ['Click to start!!!','GAME OVER','Thanks for play!!!'];
 
 const MainSection = () => {
 

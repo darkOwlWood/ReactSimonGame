@@ -9,6 +9,8 @@
 
     position: relative;
     z-index: 5;
+
+    cursor: pointer;
 }
 
 .green{
@@ -40,6 +42,12 @@
     @extend %simon-button;
     background-color: #FFEE58;
     border-image: linear-gradient(145deg, rgba(255,249,201,1) 0%, rgba(255,238,88,1) 50%, rgba(99,92,28,1) 100%) 30% stretch;
+}
+
+.cyan{
+    @extend %simon-button;
+    background-color: #00fff8;
+    border-image: linear-gradient(145deg, rgba(175,255,253,1) 0%, rgba(0,255,248,1) 50%, rgba(0,101,98,1) 100%)30% stretch;
 }
 
 .nail{
