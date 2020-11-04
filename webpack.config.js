@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname,'src','index.js'),
@@ -23,14 +24,21 @@ module.exports = {
             {
                 test: /\.(css|scss)$/,
                 use:[
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ]
             },
             {
-                test: /\.(jpg|png|gift)/,
-                loader: 'file-loader',
+                test: /\.(jpg|png|gift)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8000,
+                        }
+                    }
+                ],
             }
         ]
     },
@@ -45,6 +53,21 @@ module.exports = {
             filepath: path.resolve(__dirname,'dist','modules.js'),
             publicPath: '/',
         }),
-    ]
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+        })
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
 }
 

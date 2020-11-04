@@ -1,5 +1,5 @@
 import React,{ useEffect, useState, useRef } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import Config from '../config/config';
 import '../assets/styles/components/Score.scss';
 
@@ -9,11 +9,11 @@ const Score = ({gameState}) => {
     const [points, setPoints] = useState({score:0, bestScore:0});
 
     useEffect(() => {
-        const score = (Config.GAME_TIME/100 - Math.floor(moment().diff(timeElapsed.current)/100));
+        const score = (Config.GAME_TIME/100 - Math.floor(dayjs().diff(timeElapsed.current)/100));
         timeElapsed.current && setPoints({...points, score:points.score+score});
         if(gameState.messageId === Config.START_SIMON){
             setTimeout(() => {
-                timeElapsed.current = moment();
+                timeElapsed.current = dayjs();
             }, Config.BLINK_TIME + (Config.DELAY_TIME * gameState.level));
         }else{
             timeElapsed.current = null;
