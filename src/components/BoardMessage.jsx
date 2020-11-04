@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import '../assets/styles/components/BoardMessage.scss';
 import Config from '../config';
 
-const BoardMessage = ({message, gameState, setGameState}) => {
+const BoardMessage = ({message, setGameState}) => {
     
     const divEl = useRef(null);
 
@@ -10,7 +10,7 @@ const BoardMessage = ({message, gameState, setGameState}) => {
         divEl.current.classList.add('board-message--curtainUpping');
         setTimeout( () => {
             setGameState({messageId:Config.START_SIMON, level:1});
-        },Config.UPPING_ANIMATION_TIME);
+        },Config.BOARDMESSAGE_UPPING);
     }
 
     return (

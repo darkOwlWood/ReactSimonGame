@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev-dll": "webpack --mode development --config webpack.config.dll.js",
-    "build:dev-server": "webpack-dev-server --mode development",
+    "build:dev-server": "webpack-dev-server --mode development --host 0.0.0.0",
     "build:production": "webpack --mode production --config webpack.config.dll.js && webpack --mode production"
   },
   "keywords": [],

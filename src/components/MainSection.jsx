@@ -24,7 +24,6 @@ const MainSection = () => {
                     .map( (message) => (
                         <BoardMessage 
                             message={message}
-                            gameState={gameState}
                             setGameState={setGameState}
                         />
                     ))
