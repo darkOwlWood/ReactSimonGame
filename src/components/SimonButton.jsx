@@ -12,7 +12,7 @@ const SimonButton = ({id,lock,color,simonData,setSimonData,checkSimonSequence}) 
         if(length){
             simonData.sequence.forEach( (number,ndx) => {
                 if(id === number){
-                    setTimeout(makeTheButtonBlink, Config.DELAY_TIME * (ndx+1));
+                    setTimeout(()=>makeTheButtonBlink('cyan'), Config.DELAY_TIME * (ndx+1));
                 }
             });
     
@@ -24,18 +24,18 @@ const SimonButton = ({id,lock,color,simonData,setSimonData,checkSimonSequence}) 
     const handleOnClick = async () => {
         if(lock.current){
             lock.current = false;
-            await makeTheButtonBlink();
+            await makeTheButtonBlink('yellow');
             checkSimonSequence(id);
             lock.current = true;
         }
     }
 
-    async function makeTheButtonBlink(){
-        divEl.current.classList.add('yellow');
+    async function makeTheButtonBlink(color){
+        divEl.current.classList.add(color);
         return (
             new Promise((resolve,reject) => {
                 setTimeout( () => {
-                    divEl.current.classList.remove('yellow');
+                    divEl.current.classList.remove(color);
                     resolve();
                 }, Config.BLINK_TIME);
             })
